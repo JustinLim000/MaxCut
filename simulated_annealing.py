@@ -9,6 +9,21 @@ import networkx as nx
 from util import read_nxgraph
 from util import obj_maxcut
 
+''' 
+Simulated Annealing is an algorithm that works based on a given set of information (a function or a set of data) to find the most optimal
+solution for some purpose. In metallurgy, annealing is defined as slowly cooling down a heated substance in order to
+more easily work with it. 
+
+Simulated annealing is based on this concept, and implements a temperature variable that slowly goes down after
+iterations, as well as randomizing values. This temperature variable is initialized at a given value. 
+It divides delta_e in: prob = np.exp(- delta_e / (temperature + 1e-6)) to decide on the next value to go to. 
+Without the temperature value, it would just be a greedy algorithm in that it chooses the best value to go to at every iteration.
+
+The greedy algorithm is more easily subject to local minima, meaning it can end before reaching the ultimate optimal solution/path. Simulated
+annealing can be more useful for this, as it does not choose "the best" value every time, as to not fall into those local minima so early on.
+However, as the temperature value goes down, it's effect decreases, and the algorithm becomes more prone to minima.
+'''
+
 def simulated_annealing(init_temperature: int, num_steps: int, graph: nx.Graph) -> (int, Union[List[int], np.array], List[int]):
     print('simulated_annealing')
 
