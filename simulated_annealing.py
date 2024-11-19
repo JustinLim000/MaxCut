@@ -51,6 +51,31 @@ graph into two sets).
 4) Running duration (the shorter the better)
 '''
 
+'''
+For Cases of Algorithm Usage: 
+As seen with the MaxCut graph, the simulated annealing algorithm is useful for finding solutions to NP-Hard (nondeterministic polynomial time) 
+problems. An NP problem is basically one that, as the input size increases, the time it will take to solve the problem grows at a polynomial
+(non linear) rate. For these problems, a computer can quickly run each calculation of the Simulated Annealing Algorithm, so that we may achieve
+a feasible solution. However, this algorithm may not achieve the most optimal solution, especially as the size increases, since the probability
+of choosing the correct step every time becomes lower. This is where Reinforcement Learning comes in. Using Reinforcement Learning, we can try 
+to find which patterns result in a more optimal and efficient solution. 
+
+RL (Reinforcement Learning) implementation makes programs more dynamic by using information from prior iterations to tune parameters and 
+make mathematical predictions in real time. In a problem like this where each step is important to find a better solution, a RL algorithm 
+can learn what kind of steps result in a better or worse score, and therefore a better runtime (since it should be able to determine better 
+steps more quickly after learning). Reinforcement learning can be implemented in many ways, such as: Q learning, Policy Gradient methods, 
+Monte Carlo methods, and deep q networks. 
+
+For Max-Cut, a Q learning algorithm or a deep q network would be most optimal, as values can be
+be applied to state-action pairs as the program runs. A policy gradient method would deal with policies, which is basically the set of rules
+to go about a problem. This is inefficient in the sense of time and intuitivity, especially for larger graphs, as having to check a policy vs
+a value would be less efficient. A Monte Carlo method would return a probability distribution of potential returns using past data. However,
+this is best suited for problems in which randomness/uncertainty is a factor. The maxcut graph does not inherently have this, although an
+algorithm to solve it could include randomness to find different paths. So it is between Q learning or DQN. The major difference between
+Q learning and DQN is that q learning is suited for simple graphs whose values can be input into a graph. For the MaxCut, there can be a
+multitude of values, some of which can be interlinked, such as the state-action pair. So a DQN can be useful in this regard, as it deals with
+more complex groupings of data such as this.
+'''
 
 def simulated_annealing(init_temperature: int, num_steps: int, graph: nx.Graph) -> (int, Union[List[int], np.array], List[int]):
     print('simulated_annealing')
@@ -81,8 +106,11 @@ def simulated_annealing(init_temperature: int, num_steps: int, graph: nx.Graph) 
                 curr_solution = new_solution
                 curr_score = new_score
     print("score, init_score of simulated_annealing", curr_score, init_score)
+    '''
     print("scores: ", scores)
     print("solution: ", curr_solution)
+    '''
+
     running_duration = time.time() - start_time
     print('running_duration: ', running_duration)
     return curr_score, curr_solution, scores
@@ -93,8 +121,8 @@ if __name__ == '__main__':
     # run alg
     # init_solution = list(np.random.randint(0, 2, graph.number_of_nodes()))
 
-    # read data
-    graph = read_nxgraph('./data/syn/syn_50_176.txt')
+    # read data 14,15,22,49,50,55,70
+    graph = read_nxgraph('./data/gset/gset_49.txt')
     init_temperature = 4
     num_steps = 2000
     sa_score, sa_solution, sa_scores = simulated_annealing(init_temperature, num_steps, graph)
